@@ -5,6 +5,8 @@ services:
     restart: unless-stopped
     volumes:
       - redisdata:/data
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   db:
     image: docker.io/library/postgres:15
@@ -15,6 +17,8 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   webserver:
     image: ghcr.io/paperless-ngx/paperless-ngx:latest
@@ -42,6 +46,8 @@ services:
       PAPERLESS_OCR_LANGUAGES: eng por
       PAPERLESS_SECRET_KEY: ${PAPERLESS_SECRET_KEY}
       PAPERLESS_OCR_LANGUAGE: por
+      extra_hosts:
+        - "host.docker.internal:host-gateway"
 
 volumes:
   data:
